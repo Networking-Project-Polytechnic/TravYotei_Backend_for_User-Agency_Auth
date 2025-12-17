@@ -1,0 +1,19 @@
+http://localhost:8181/api/v1/auth/login     (POST)
+
+{
+    "userName": "Arrey_Kerone",
+    "password": "Alt+F4_Master"
+}
+
+http://localhost:8181/api/v1/client/register     (POST)
+
+{
+    "firstName": "Arreyntow",
+    "lastName": "Kerone Enow",
+    "userName": "Arrey_Kerone",
+    "email": "1enowarreyntow@gmail.com",
+    "password": "Alt+F4_Master",
+    "phoneNumber": 675853494,
+    "address": "Biyem Assi"
+
+}
