@@ -17,3 +17,19 @@ http://localhost:8181/api/v1/client/register     (POST)
     "address": "Biyem Assi"
 
 }
+
+
+
+# Useful commands
+
+# 1. First, build your project
+mvn clean compile
+
+# 2. Package it (creates the JAR)
+mvn package -DskipTests
+
+# 3. Install to local repository
+mvn install -DskipTests
+
+# 4. Now run liquibase diff
+mvn liquibase:diff
