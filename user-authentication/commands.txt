@@ -1,0 +1,7 @@
+### Commands to guide me
+
+
+sudo docker compose up -d     ------>     To start containers (kafka and zookeeper, postgis containers)
+sudo docker ps               ------>     To view the running containers
+sudo docker compose down -v   ------>     To stop the running containers
+sudo docker exec -it postgres-users psql -U postgres  ------> Enter psql shell from host

@@ -88,7 +88,7 @@ public class UsersService implements UserDetailsService{
         
         return usersRepository.save(agency);
     }
-
+// firstName, lastName, userName, email, password, phoneNumber, address, licenseNumber
 
     @Transactional // Ensures the update happens within a database transaction
     public Users updateProfileImageUrl(String userEmail, String newImageUrl) {
@@ -129,5 +129,9 @@ public class UsersService implements UserDetailsService{
         agency.setStatus(newStatus);
 
         return usersRepository.save(agency);
+    }
+
+    public Optional<Users> findByUserName(String username) {
+        return usersRepository.findByUserName(username);
     }
 }

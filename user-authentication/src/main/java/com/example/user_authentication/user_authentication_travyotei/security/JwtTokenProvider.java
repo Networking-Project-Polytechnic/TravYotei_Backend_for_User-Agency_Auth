@@ -30,12 +30,31 @@ public class JwtTokenProvider {
         Date expiryDate = new Date(now.getTime() + jwtExpirationDateInMillis);
 
         return Jwts.builder()
-                // Use the new builder-style methods: subject(), issuedAt(), expiration()
-                .subject(userPrincipal.getUsername()) //
-                .issuedAt(now) //
-                .expiration(expiryDate) //
-                // Use the non-deprecated signWith(Key key) method
+                .subject(userPrincipal.getUsername())
+                .issuedAt(now)
+                .expiration(expiryDate)
                 .signWith(getSigningKey()) 
                 .compact();
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parser()
+                .verifyWith(getSigningKey())
+                .build()
+                .parseSignedClaims(token);
+            return true;
+        } catch (JwtException | IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    public String getUsernameFromToken(String token) {
+        return Jwts.parser()
+                .verifyWith(getSigningKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getSubject();
     }
 }

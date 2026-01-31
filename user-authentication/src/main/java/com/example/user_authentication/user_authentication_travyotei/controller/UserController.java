@@ -27,6 +27,14 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
     private final UsersService usersService;
 
+    @GetMapping("/profile")
+    public ResponseEntity<Users> getUserProfile(Principal principal) {
+        String username = principal.getName();
+        return usersService.findByUserName(username)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PutMapping("/user/profile/image-url") // Use PUT or PATCH for updates
     public ResponseEntity<Users> updateProfileImage(
             @RequestBody ImageUrlUpdateRequest request,
@@ -60,7 +68,7 @@ public class UserController {
 
     // 3. Get all agencies (Admin only)
     @GetMapping("/agencies")
-    @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN', 'AGENCY', 'CLIENT')")
     public List<Users> getAllAgencies() {
         return usersService.getAllAgencies();
     }
