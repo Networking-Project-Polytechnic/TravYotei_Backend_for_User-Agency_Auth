@@ -1,12 +1,7 @@
 databaseChangeLog:
   - changeSet:
-      id: create-users-table-v2
+      id: create-users-table-v3
       author: antigravity
-      preConditions:
-        - onFail: MARK_RAN
-          not:
-            tableExists:
-              tableName: users
       changes:
         - createTable:
             tableName: users
