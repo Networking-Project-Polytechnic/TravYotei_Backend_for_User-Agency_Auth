@@ -12,6 +12,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,14 +27,18 @@ import com.example.user_authentication.user_authentication_travyotei.user_detail
 import com.example.user_authentication.user_authentication_travyotei.user_details.Status;
 
 @Entity
+@Table(name = "users")
 @Data
 @NoArgsConstructor
 public class Users implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "last_name")
     private String lastName;
+    @Column(name = "user_name")
     private String userName;
     private String email;
     private String password;
@@ -43,9 +49,12 @@ public class Users implements UserDetails{
     @Enumerated(EnumType.STRING) 
     private Status status;
     
+    @Column(name = "profile_image_url")
     private String profileImageUrl;
+    @Column(name = "phone_number")
     private long phoneNumber;
     private String address;
+    @Column(name = "license_number")
     private String licenseNumber;
     private String bio;
 
