@@ -4,23 +4,23 @@ databaseChangeLog:
       author: antigravity
       changes:
         - createTable:
-            tableName: Users
+            tableName: users
             columns:
               - column:
                   name: id
                   type: UUID
                   constraints:
                     primaryKey: true
-                    primaryKeyName: UsersPK
+                    primaryKeyName: users_pk
                     nullable: false
               - column:
-                  name: firstName
+                  name: first_name
                   type: VARCHAR(255)
               - column:
-                  name: lastName
+                  name: last_name
                   type: VARCHAR(255)
               - column:
-                  name: userName
+                  name: user_name
                   type: VARCHAR(255)
               - column:
                   name: email
@@ -35,10 +35,10 @@ databaseChangeLog:
                   name: status
                   type: VARCHAR(255)
               - column:
-                  name: profileImageUrl
+                  name: profile_image_url
                   type: VARCHAR(255)
               - column:
-                  name: phoneNumber
+                  name: phone_number
                   type: BIGINT
                   constraints:
                     nullable: false
@@ -46,7 +46,7 @@ databaseChangeLog:
                   name: address
                   type: VARCHAR(255)
               - column:
-                  name: licenseNumber
+                  name: license_number
                   type: VARCHAR(255)
               - column:
                   name: bio
