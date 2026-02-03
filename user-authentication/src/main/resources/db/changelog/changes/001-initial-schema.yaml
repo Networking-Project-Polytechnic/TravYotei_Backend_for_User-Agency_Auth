@@ -2,6 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: initial-schema-setup
       author: antigravity
+      validCheckSum: ANY
       changes:
         - createTable:
             tableName: users
