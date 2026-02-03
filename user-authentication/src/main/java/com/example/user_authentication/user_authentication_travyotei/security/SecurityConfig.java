@@ -80,7 +80,7 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         // Configure which frontend origins are allowed to access your API
-        configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://yourproductiondomain.com")); 
+        configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://frontend-travyotei.vercel.app")); 
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
