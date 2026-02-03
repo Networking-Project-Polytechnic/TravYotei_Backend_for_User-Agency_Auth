@@ -47,7 +47,7 @@ public class Users implements UserDetails{
     private long phoneNumber;
     private String address;
     private String licenseNumber;
-
+    private String bio;
 
     // =============================================
     // CONCRETE ADDITIONS FOR USERDETAILS INTERFACE

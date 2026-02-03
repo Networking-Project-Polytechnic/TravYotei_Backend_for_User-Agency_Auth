@@ -88,11 +88,10 @@ public class UsersService implements UserDetailsService{
         
         return usersRepository.save(agency);
     }
-// firstName, lastName, userName, email, password, phoneNumber, address, licenseNumber
 
     @Transactional // Ensures the update happens within a database transaction
-    public Users updateProfileImageUrl(String userEmail, String newImageUrl) {
-        Users user = usersRepository.findByEmail(userEmail)
+    public Users updateProfileImageUrl(String username, String newImageUrl) {
+        Users user = usersRepository.findByUserName(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         user.setProfileImageUrl(newImageUrl);
@@ -133,5 +132,13 @@ public class UsersService implements UserDetailsService{
 
     public Optional<Users> findByUserName(String username) {
         return usersRepository.findByUserName(username);
+    }
+
+    public void updateBio(String username, String newBio) {
+        Users user = usersRepository.findByUserName(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setBio(newBio);
+        usersRepository.save(user);
     }
 }

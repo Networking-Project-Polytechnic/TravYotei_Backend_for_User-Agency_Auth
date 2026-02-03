@@ -41,9 +41,9 @@ public class UserController {
             Principal principal) // Spring Security automatically populates this
     {
         // 'principal.getName()' gives you the authenticated user's email/username
-        String userEmail = principal.getName(); 
+        String username = principal.getName(); 
         
-        Users updatedUser = usersService.updateProfileImageUrl(userEmail, request.getNewImageUrl());
+        Users updatedUser = usersService.updateProfileImageUrl(username, request.getNewImageUrl());
         
         return ResponseEntity.ok(updatedUser);
     }
@@ -59,13 +59,13 @@ public class UserController {
 
     // 2. Get a particular agency (Accessible by Agencies viewing their own, or Admin)
     @GetMapping("/agencies/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'AGENCY')")
+    // @PreAuthorize("hasAnyRole('ADMIN', 'AGENCY')")
     public ResponseEntity<Users> getAgencyById(@PathVariable UUID id) {
         return usersService.getAgencyById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
+// http://localhost:8181/api/v1/agencies
     // 3. Get all agencies (Admin only)
     @GetMapping("/agencies")
     // @PreAuthorize("hasRole('ADMIN', 'AGENCY', 'CLIENT')")
@@ -86,5 +86,12 @@ public class UserController {
     public ResponseEntity<Users> updateAgencyStatus(@PathVariable UUID id, @RequestParam Status status) {
         Users updatedAgency = usersService.updateAgencyStatus(id, status);
         return ResponseEntity.ok(updatedAgency);
+    }
+
+    @PutMapping("/user/profile/bio")
+    public ResponseEntity<Void> updateBio(@RequestBody String newBio, Principal principal) {
+        String username = principal.getName();
+        usersService.updateBio(username, newBio);
+        return ResponseEntity.ok().build();
     }
 }
