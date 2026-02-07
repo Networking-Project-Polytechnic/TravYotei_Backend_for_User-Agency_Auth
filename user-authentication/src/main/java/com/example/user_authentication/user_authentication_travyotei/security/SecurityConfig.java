@@ -68,7 +68,9 @@ public class SecurityConfig {
                     // Public Endpoints (accessible without a token)
                     auth.requestMatchers("/api/v1/auth/login", 
                                          "/api/v1/auth/client/register", 
-                                         "/api/v1/auth/agency/register").permitAll()
+                                         "/api/v1/auth/agency/register",
+                                        "/api/v1/agencies",
+                                        "/api/v1/agencies/{id}").permitAll()
                         // All other endpoints require a valid token (authentication)
                         .anyRequest().authenticated();
                 })
