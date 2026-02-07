@@ -28,5 +28,6 @@ public class UserRequestDTO {
     private long phoneNumber;
     private String address;
     private String licenseNumber;
+    private String pricingPlan;
 
 }

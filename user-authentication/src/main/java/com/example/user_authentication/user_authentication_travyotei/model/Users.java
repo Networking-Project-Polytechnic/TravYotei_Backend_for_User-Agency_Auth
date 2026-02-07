@@ -57,6 +57,9 @@ public class Users implements UserDetails{
     @Column(name = "license_number")
     private String licenseNumber;
     private String bio;
+    
+    @Column(name = "pricing_plan")
+    private String pricingPlan;
 
     // =============================================
     // CONCRETE ADDITIONS FOR USERDETAILS INTERFACE

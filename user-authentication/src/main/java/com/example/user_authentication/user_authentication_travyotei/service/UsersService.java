@@ -62,6 +62,7 @@ public class UsersService implements UserDetailsService{
         client.setPhoneNumber(clientDTO.getPhoneNumber());
         client.setAddress(clientDTO.getAddress());
         client.setRole(Role.ROLE_CLIENT);
+        client.setPricingPlan("free"); // Default to free
 
         return usersRepository.save(client);
     }
@@ -85,8 +86,42 @@ public class UsersService implements UserDetailsService{
         agency.setLicenseNumber(agencyDTO.getLicenseNumber());
         agency.setRole(Role.ROLE_AGENCY);
         agency.setStatus(Status.PENDING);
-        
+        agency.setPricingPlan("free"); // Default to free or use from DTO if provided
+
         return usersRepository.save(agency);
+    }
+
+    @Transactional
+    public Users upgradeToAgency(String username, UserRequestDTO upgradeDetails) {
+        Users user = usersRepository.findByUserName(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (user.getRole() == Role.ROLE_AGENCY) {
+            throw new RuntimeException("User is already an agency");
+        }
+
+        user.setRole(Role.ROLE_AGENCY);
+        user.setStatus(Status.PENDING); // Require approval for new agencies
+        
+        // Update agency details
+        if (upgradeDetails.getLicenseNumber() != null) {
+            user.setLicenseNumber(upgradeDetails.getLicenseNumber());
+        }
+        if (upgradeDetails.getAddress() != null) {
+            user.setAddress(upgradeDetails.getAddress());
+        }
+        if (upgradeDetails.getPhoneNumber() != 0) {
+            user.setPhoneNumber(upgradeDetails.getPhoneNumber());
+        }
+        
+        // Update pricing plan if provided, else keep existing or default
+        if (upgradeDetails.getPricingPlan() != null) {
+            user.setPricingPlan(upgradeDetails.getPricingPlan());
+        } else if (user.getPricingPlan() == null) {
+            user.setPricingPlan("free");
+        }
+
+        return usersRepository.save(user);
     }
 
     @Transactional // Ensures the update happens within a database transaction

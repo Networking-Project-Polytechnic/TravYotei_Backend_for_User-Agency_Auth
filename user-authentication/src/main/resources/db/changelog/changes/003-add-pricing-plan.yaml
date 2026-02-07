@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-add-pricing-plan
+      author: antigravity
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: pricing_plan
+                  type: varchar(255)
+                  defaultValue: "free"
