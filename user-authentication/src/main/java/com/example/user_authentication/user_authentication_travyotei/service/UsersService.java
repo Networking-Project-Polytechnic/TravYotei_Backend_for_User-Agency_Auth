@@ -100,6 +100,8 @@ public class UsersService implements UserDetailsService{
             throw new RuntimeException("User is already an agency");
         }
 
+        user.setFirstName(upgradeDetails.getFirstName());
+        user.setLastName(upgradeDetails.getLastName());
         user.setRole(Role.ROLE_AGENCY);
         user.setStatus(Status.PENDING); // Require approval for new agencies
         
