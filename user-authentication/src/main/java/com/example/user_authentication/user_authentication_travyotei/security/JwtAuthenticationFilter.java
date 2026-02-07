@@ -23,6 +23,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtTokenProvider tokenProvider;
     private final UserDetailsService userDetailsService;
 
+    /**
+     * Skip the filter for public endpoints so permitAll() works even when no token is provided.
+     * Adjust these paths if you add/remove public endpoints.
+     */
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getServletPath();
+
+        // Exact public endpoints
+        if ("/api/v1/auth/login".equals(path)
+                || "/api/v1/auth/client/register".equals(path)
+                || "/api/v1/auth/agency/register".equals(path)) {
+            return true;
+        }
+
+        // Public collection endpoints /api/v1/agencies and any sub-paths
+        if ("/api/v1/agencies".equals(path) || path.startsWith("/api/v1/agencies/")) {
+            return true;
+        }
+
+        return false;
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -33,7 +56,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
                 String username = tokenProvider.getUsernameFromToken(jwt);
 
-
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
@@ -41,11 +63,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } else {
-                System.out.println("JWT Token is missing or invalid");
+                // No token present or token invalid: do not block — proceed and allow permitAll to work
             }
         } catch (Exception ex) {
+            // Log and continue the chain so public endpoints still work
             System.out.println("Could not set user authentication in security context: " + ex.getMessage());
-            ex.printStackTrace();
         }
 
         filterChain.doFilter(request, response);
