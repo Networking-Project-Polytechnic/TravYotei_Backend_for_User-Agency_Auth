@@ -5,3 +5,7 @@ sudo docker compose up -d     ------>     To start containers (kafka and zookeep
 sudo docker ps               ------>     To view the running containers
 sudo docker compose down -v   ------>     To stop the running containers
 sudo docker exec -it postgres-users psql -U postgres  ------> Enter psql shell from host
+
+### Swagger
+- Swagger UI URL: http://localhost:8181/swagger-ui.html (or http://localhost:8080/swagger-ui/index.html)
+- OpenAPI 3 JSON definition URL: http://localhost:8181/v3/api-docs

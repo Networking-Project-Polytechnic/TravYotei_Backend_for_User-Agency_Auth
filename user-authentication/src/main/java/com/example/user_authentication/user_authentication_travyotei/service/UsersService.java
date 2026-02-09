@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.user_authentication.user_authentication_travyotei.dto.UserRequestDTO;
+import com.example.user_authentication.user_authentication_travyotei.dto.UserRequestDTOMapper;
+import com.example.user_authentication.user_authentication_travyotei.dto.UserResponseDTO;
+import com.example.user_authentication.user_authentication_travyotei.event.KafkaProducerService;
 import com.example.user_authentication.user_authentication_travyotei.model.Users;
 import com.example.user_authentication.user_authentication_travyotei.repository.UsersRepository;
 import com.example.user_authentication.user_authentication_travyotei.user_details.Role;
@@ -28,7 +31,9 @@ public class UsersService implements UserDetailsService{
 
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
-
+    private final KafkaProducerService kafkaProducerService;
+    private final UserResponseDTO userResponseDTO;
+    private final UserRequestDTOMapper userRequestDTOMapper;
     @Override
     public UserDetails loadUserByUsername(String username) {
 
@@ -87,7 +92,10 @@ public class UsersService implements UserDetailsService{
         agency.setRole(Role.ROLE_AGENCY);
         agency.setStatus(Status.PENDING);
         agency.setPricingPlan("free"); // Default to free or use from DTO if provided
-
+        // Convert DTO to entity for Kafka event
+        UserResponseDTO agencyResponse = userRequestDTOMapper.toDTO(agency);
+        // Send Kafka event
+        kafkaProducerService.sendAgencyRegistrationEvent("Agency-created", agencyResponse);
         return usersRepository.save(agency);
     }
 

@@ -19,4 +19,20 @@ public class UserRequestDTOMapper {
         user.setLicenseNumber(dto.getLicenseNumber());
         return user;
     }
+
+    public UserResponseDTO toDTO(Users user) {
+        return new UserResponseDTO(
+                user.getFirstName(),
+                user.getLastName(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getRole(),
+                user.getStatus(),
+                user.getProfileImageUrl(),
+                user.getPhoneNumber(),
+                user.getAddress(),
+                user.getLicenseNumber(),
+                user.getPricingPlan()
+        );
+    }
 }
