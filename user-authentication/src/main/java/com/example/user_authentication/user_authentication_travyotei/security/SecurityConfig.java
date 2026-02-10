@@ -74,7 +74,9 @@ public class SecurityConfig {
                                         "/v3/api-docs/**",
                                         "/custom-swagger/**",
                                         "/swagger-ui/**",
-                                        "/swagger-ui.html").permitAll()
+                                        "/swagger-ui.html",
+                                        "/api/docs/**",
+                                        "/api/docs").permitAll()
                         // All other endpoints require a valid token (authentication)
                         .anyRequest().authenticated();
                 })
