@@ -70,7 +70,11 @@ public class SecurityConfig {
                                          "/api/v1/auth/client/register", 
                                          "/api/v1/auth/agency/register",
                                         "/api/v1/agencies",
-                                        "/api/v1/agencies/*").permitAll()
+                                        "/api/v1/agencies/*",
+                                        "/v3/api-docs/**",
+                                        "/custom-swagger/**",
+                                        "/swagger-ui/**",
+                                        "/swagger-ui.html").permitAll()
                         // All other endpoints require a valid token (authentication)
                         .anyRequest().authenticated();
                 })
