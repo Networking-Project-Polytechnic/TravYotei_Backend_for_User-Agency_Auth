@@ -16,8 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -97,15 +96,5 @@ public class SecurityConfig {
         return source;
     }
 
-     @Bean
-    public JwtDecoder jwtDecoder() {
-        // For symmetric key (HMAC)
-        // String secretKey = "your-256-bit-secret";
-        // return NimbusJwtDecoder.withSecretKey(
-        //     new SecretKeySpec(secretKey.getBytes(), "HmacSHA256")).build();
-        
-        // For RSA public key (asymmetric)
-        String jwkSetUri = "https://your-auth-server/.well-known/jwks.json";
-        return NimbusJwtDecoder.withJwkSetUri(jwkSetUri).build();
-    }
+
 }
