@@ -32,7 +32,6 @@ public class UsersService implements UserDetailsService{
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
     private final KafkaProducerService kafkaProducerService;
-    private final UserResponseDTO userResponseDTO;
     private final UserRequestDTOMapper userRequestDTOMapper;
     @Override
     public UserDetails loadUserByUsername(String username) {

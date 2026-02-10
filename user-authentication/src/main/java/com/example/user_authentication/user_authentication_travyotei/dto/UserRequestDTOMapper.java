@@ -2,6 +2,9 @@ package com.example.user_authentication.user_authentication_travyotei.dto;
 
 import com.example.user_authentication.user_authentication_travyotei.model.Users;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UserRequestDTOMapper {
 
     public Users toEntity(UserRequestDTO dto) {
