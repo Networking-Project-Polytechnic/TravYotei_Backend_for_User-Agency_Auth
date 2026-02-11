@@ -4,6 +4,7 @@ package com.example.user_authentication.user_authentication_travyotei.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.time.Instant;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -184,5 +185,16 @@ public class UsersService implements UserDetailsService{
 
         user.setBio(newBio);
         usersRepository.save(user);
+    }
+    
+    @Transactional
+    public void backfillCreatedAt() {
+        List<Users> allUsers = usersRepository.findAll();
+        for (Users user : allUsers) {
+            if (user.getCreatedAt() == null) {
+                user.setCreatedAt(Instant.now());
+                usersRepository.save(user);
+            }
+        }
     }
 }

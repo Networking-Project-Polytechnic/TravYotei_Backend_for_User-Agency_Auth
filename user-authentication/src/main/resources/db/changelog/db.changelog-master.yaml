@@ -8,3 +8,6 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/003-add-pricing-plan.yaml
       relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/004-add-created-at.yaml
+      relativeToChangelogFile: false

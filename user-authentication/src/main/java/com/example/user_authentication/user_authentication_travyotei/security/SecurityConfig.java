@@ -70,6 +70,7 @@ public class SecurityConfig {
                                          "/api/v1/auth/agency/register",
                                         "/api/v1/agencies",
                                         "/api/v1/agencies/**",
+                                        "/api/v1/public/users/backfill-created-at",
                                         "/v3/api-docs/**",
                                         "/custom-swagger/**",
                                         "/swagger-ui/**",

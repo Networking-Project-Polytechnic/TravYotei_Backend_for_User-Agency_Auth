@@ -103,4 +103,10 @@ public class UserController {
         Users upgradedUser = usersService.upgradeToAgency(username, upgradeDetails);
         return ResponseEntity.ok(upgradedUser);
     }
+
+    @PostMapping("/public/users/backfill-created-at")
+    public ResponseEntity<String> backfillCreatedAt() {
+        usersService.backfillCreatedAt();
+        return ResponseEntity.ok("Backfill completed successfully");
+    }
 }
