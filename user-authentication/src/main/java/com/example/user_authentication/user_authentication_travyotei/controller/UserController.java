@@ -84,7 +84,7 @@ public class UserController {
 
     // 5. Update an agency's status (Admin only)
     @PutMapping("/agencies/{id}/status")
-    @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Users> updateAgencyStatus(@PathVariable UUID id, @RequestParam Status status) {
         Users updatedAgency = usersService.updateAgencyStatus(id, status);
         return ResponseEntity.ok(updatedAgency);
